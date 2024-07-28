@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *,
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+
+    .container {
+        width: 100%;
+        height: 100vh;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        background-color: black;
+    }
+
+    .items {
+        background-color: rgb(255, 255, 255);
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #note {
+        display: flex;
+    }
+
+    #note button {
+        font-size: large;
+        padding: 20px;
+        height: 150px;
+    }
+
+    #note button:nth-child(odd) {
+        background-color: #1a1a1a;
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="items">
+            <h1>PIANOKUY</h1>
+            <div id="note"></div>
+        </div>
+    </div>
+    <script>
+        const chords = ["a", "c", "d", "e", "f"]
+        const note = document.getElementById("note")
+        const chordKey = {
+            "Z": "a",
+            "X": "c",
+            "C": "d",
+            "V": "e",
+            "B": "f"
+        }
+        chords.forEach(chord => {
+            const button = document.createElement("button")
+            button.innerText = chord
+            button.id = chord
+            note.appendChild(button)
+            button.addEventListener('click', () => {
+                const sound = new Audio(`/assets/${chord}.wav`)
+                sound.play()
+            })
+
+        })
+        document.addEventListener('keypress', (e) => {
+            const key = e.key.toUpperCase()
+            const chord = chordKey[key]
+            const button = document.getElementById(chord)
+            if (button) {
+                button.click()
+            }
+        })
+    </script>
+</body>
+
+</html>
